@@ -13,9 +13,8 @@ class TestBooksCollector:
 
 
     def test_add_new_book_add_two_books(self):
-        # создаем экземпляр (объект) класса BooksCollector
+
         collector = BooksCollector()
-        # добавляем две книги
         collector.add_new_book('Гордость и предубеждение и зомби')
         collector.add_new_book('Что делать, если ваш кот хочет вас убить')
 
@@ -26,7 +25,6 @@ class TestBooksCollector:
         'Что делать, если ваш кот хочет вас убить'
     ])
     def test_add_new_book_with_a_long_title(self, name):
-        # создаем экземпляр (объект) класса BooksCollector
         collector = BooksCollector()
         assert len(name) > 41, f"Ошибка: Длина названия книги '{name}' должна быть больше 41 символа."
 
@@ -69,7 +67,6 @@ class TestBooksCollector:
         assert 'Лев, колдунья и платяной шкаф' in books
         assert 'Тебе не спрятаться' not in books
 
-        # добавляем книгу в Избранное
 
     def test_add_book_in_favorites(self):
         collector = BooksCollector()
@@ -77,7 +74,6 @@ class TestBooksCollector:
         collector.add_book_in_favorites('Дюна')
         assert 'Дюна' in collector.get_list_of_favorites_books()
 
-        # удаляем книгу из Избранного
 
     def test_delete_book_from_favorites(self):
         collector = BooksCollector()
@@ -86,14 +82,11 @@ class TestBooksCollector:
         collector.delete_book_from_favorites('Дюна')
         assert 'Дюна' not in collector.get_list_of_favorites_books()
 
-        # добавить книгу в избранное несуществующую
 
     def test_add_book_in_favorites_invalid(self):
         collector = BooksCollector()
         collector.add_book_in_favorites('Nonexistent Book')
         assert 'Nonexistent Book' not in collector.get_list_of_favorites_books()
-
-        # получаем список Избранных книг
 
     def test_get_list_in_favorites_books(self):
         collector = BooksCollector()
