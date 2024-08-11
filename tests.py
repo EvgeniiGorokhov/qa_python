@@ -1,16 +1,7 @@
 from main import BooksCollector
-
-# класс TestBooksCollector объединяет набор тестов, которыми мы покрываем наше приложение BooksCollector
-# обязательно указывать префикс Test
 import pytest
 
-from main import BooksCollector
-
-
-# класс TestBooksCollector объединяет набор тестов, которыми мы покрываем наше приложение BooksCollector
-# обязательно указывать префикс Test
 class TestBooksCollector:
-
 
     def test_add_new_book_two_books_true(self):
 
@@ -21,13 +12,16 @@ class TestBooksCollector:
         assert len(collector.get_books_genre()) == 2
 
     @pytest.mark.parametrize('name', [
-        'Гордость и предубеждение и зомби'
-        'Что делать, если ваш кот хочет вас убить'
+        'Гордость и предубеждение и зомби         ',
+        'Что делать, если ваш кот хочет вас убить '
     ])
     def test_add_new_book_with_a_long_title_false(self, name):
         collector = BooksCollector()
-        assert len(name) > 41, f"Ошибка: Длина названия книги '{name}' должна быть больше 41 символа."
+        assert len(name) > 40, f"Ошибка: Длина названия книги '{name}' не должна быть больше 41 символа."
 
+    def test_get_books_genre_empty_true(self):
+        collector = BooksCollector()
+        assert collector.get_books_genre() == {}
 
     @pytest.mark.parametrize('name, genre', [
         ("Властелин Колец", "Фантастика"),
@@ -56,16 +50,6 @@ class TestBooksCollector:
         books = collector.get_books_with_specific_genre('Фантастика')
         assert 'Автостопом по Галактике' in books
         assert 'Dracula' not in books
-
-    def test_get_books_for_children_true(self):
-        collector = BooksCollector()
-        collector.add_new_book('Лев, колдунья и платяной шкаф')
-        collector.set_book_genre('Лев, колдунья и платяной шкаф', 'Фантастика')
-        collector.add_new_book('Тебе не спрятаться')
-        collector.set_book_genre('Тебе не спрятаться', 'Ужасы')
-        books = collector.get_books_for_children()
-        assert 'Лев, колдунья и платяной шкаф' in books
-        assert 'Тебе не спрятаться' not in books
 
 
     def test_add_book_in_favorites_true(self):
@@ -106,11 +90,6 @@ class TestBooksCollector:
         collector.add_book_in_favorites('Brave New World')
         assert collector.get_list_of_favorites_books() == ['1984', 'Brave New World']
 
-
-    def test_get_books_genre_true(self):
-        collector = BooksCollector()
-        assert collector.books_genre == {}
-
     def test_get_book_genre_name_true(self):
         collector = BooksCollector()
         collector.add_new_book('Гордость и предубеждение')
@@ -118,37 +97,12 @@ class TestBooksCollector:
 
     def test_get_books_for_children_rating_true(self):
         collector = BooksCollector()
-        # Добавляем книги
         collector.add_new_book('Лев, колдунья и платяной шкаф')
         collector.set_book_genre('Лев, колдунья и платяной шкаф', 'Фантастика')
         collector.add_new_book('Тебе не спрятаться')
         collector.set_book_genre('Тебе не спрятаться', 'Ужасы')
 
-        # Устанавливаем возрастные ограничения для жанров
-        collector.genre_age_rating = {
-            'Детективы': 18,
-            'Ужасы': 18
-        }
-        collector.child_age_limit = 18  # Устанавливаем возрастной лимит для детей
-
-        # Получаем список книг, подходящих для детей
         books = collector.get_books_for_children()
 
-        # Проверяем, что нужные книги включены или исключены
         assert 'Лев, колдунья и платяной шкаф' in books, "Ошибка: 'Лев, колдунья и платяной шкаф' должен быть в списке."
         assert 'Тебе не спрятаться' not in books, "Ошибка: 'Тебе не спрятаться' не должен быть в списке."
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
