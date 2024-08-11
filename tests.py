@@ -12,7 +12,7 @@ from main import BooksCollector
 class TestBooksCollector:
 
 
-    def test_add_new_book_add_two_books(self):
+    def test_add_new_book_two_books_true(self):
 
         collector = BooksCollector()
         collector.add_new_book('Гордость и предубеждение и зомби')
@@ -24,7 +24,7 @@ class TestBooksCollector:
         'Гордость и предубеждение и зомби'
         'Что делать, если ваш кот хочет вас убить'
     ])
-    def test_add_new_book_with_a_long_title(self, name):
+    def test_add_new_book_with_a_long_title_false(self, name):
         collector = BooksCollector()
         assert len(name) > 41, f"Ошибка: Длина названия книги '{name}' должна быть больше 41 символа."
 
@@ -33,21 +33,21 @@ class TestBooksCollector:
         ("Властелин Колец", "Фантастика"),
         ("Шерлок Холмс", "Детективы")
     ])
-    def test_set_book_genre(self, name, genre):
+    def test_set_book_genre_true(self, name, genre):
         collector = BooksCollector()
         collector.add_new_book(name)
         collector.set_book_genre(name, genre)
         actual_genre = collector.get_book_genre(name)
         assert actual_genre == genre
 
-    def test_set_book_genre_invalid(self):
+    def test_set_book_genre_invalid_false(self):
         collector = BooksCollector()
         collector.add_new_book('1984')
         collector.set_book_genre('1984', 'Invalid Genre')
         assert collector.get_book_genre('1984') == ""
 
 
-    def test_get_books_with_specific_genre(self):
+    def test_get_books_with_specific_genre_true(self):
         collector = BooksCollector()
         collector.add_new_book('Автостопом по Галактике')
         collector.set_book_genre('Автостопом по Галактике', 'Фантастика')
@@ -57,7 +57,7 @@ class TestBooksCollector:
         assert 'Автостопом по Галактике' in books
         assert 'Dracula' not in books
 
-    def test_get_books_for_children(self):
+    def test_get_books_for_children_true(self):
         collector = BooksCollector()
         collector.add_new_book('Лев, колдунья и платяной шкаф')
         collector.set_book_genre('Лев, колдунья и платяной шкаф', 'Фантастика')
@@ -68,14 +68,14 @@ class TestBooksCollector:
         assert 'Тебе не спрятаться' not in books
 
 
-    def test_add_book_in_favorites(self):
+    def test_add_book_in_favorites_true(self):
         collector = BooksCollector()
         collector.add_new_book('Дюна')
         collector.add_book_in_favorites('Дюна')
         assert 'Дюна' in collector.get_list_of_favorites_books()
 
 
-    def test_delete_book_from_favorites(self):
+    def test_delete_book_from_favorites_true(self):
         collector = BooksCollector()
         collector.add_new_book('Дюна')
         collector.add_book_in_favorites('Дюна')
@@ -83,22 +83,22 @@ class TestBooksCollector:
         assert 'Дюна' not in collector.get_list_of_favorites_books()
 
 
-    def test_add_book_in_favorites_invalid(self):
+    def test_add_book_in_favorites_invalid_false(self):
         collector = BooksCollector()
         collector.add_book_in_favorites('Nonexistent Book')
         assert 'Nonexistent Book' not in collector.get_list_of_favorites_books()
 
-    def test_get_list_in_favorites_books(self):
+    def test_get_list_in_favorites_books_true(self):
         collector = BooksCollector()
         assert collector.get_list_of_favorites_books() == []
 
-    def test_get_list_in_favorites_books_single(self):
+    def test_get_list_in_favorites_books_single_true(self):
         collector = BooksCollector()
         collector.add_new_book('The Great Gatsby')
         collector.add_book_in_favorites('The Great Gatsby')
         assert collector.get_list_of_favorites_books() == ['The Great Gatsby']
 
-    def test_get_list_in_favorites_books_multiple(self):
+    def test_get_list_in_favorites_books_multiple_true(self):
         collector = BooksCollector()
         collector.add_new_book('1984')
         collector.add_new_book('Brave New World')
@@ -107,16 +107,16 @@ class TestBooksCollector:
         assert collector.get_list_of_favorites_books() == ['1984', 'Brave New World']
 
 
-    def test_get_books_genre(self):
+    def test_get_books_genre_true(self):
         collector = BooksCollector()
         assert collector.books_genre == {}
 
-    def test_get_book_genre(self):
+    def test_get_book_genre_name_true(self):
         collector = BooksCollector()
         collector.add_new_book('Гордость и предубеждение')
         assert collector.get_book_genre('Гордость и предубеждение') == ''
 
-    def test_get_books_for_children(self):
+    def test_get_books_for_children_rating_true(self):
         collector = BooksCollector()
         # Добавляем книги
         collector.add_new_book('Лев, колдунья и платяной шкаф')
