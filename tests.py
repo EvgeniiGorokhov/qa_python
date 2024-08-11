@@ -116,6 +116,29 @@ class TestBooksCollector:
         collector.add_new_book('Гордость и предубеждение')
         assert collector.get_book_genre('Гордость и предубеждение') == ''
 
+    def test_get_books_for_children(self):
+        collector = BooksCollector()
+        # Добавляем книги
+        collector.add_new_book('Лев, колдунья и платяной шкаф')
+        collector.set_book_genre('Лев, колдунья и платяной шкаф', 'Фантастика')
+        collector.add_new_book('Тебе не спрятаться')
+        collector.set_book_genre('Тебе не спрятаться', 'Ужасы')
+
+        # Устанавливаем возрастные ограничения для жанров
+        collector.genre_age_rating = {
+            'Детективы': 18,
+            'Ужасы': 18
+        }
+        collector.child_age_limit = 18  # Устанавливаем возрастной лимит для детей
+
+        # Получаем список книг, подходящих для детей
+        books = collector.get_books_for_children()
+
+        # Проверяем, что нужные книги включены или исключены
+        assert 'Лев, колдунья и платяной шкаф' in books, "Ошибка: 'Лев, колдунья и платяной шкаф' должен быть в списке."
+        assert 'Тебе не спрятаться' not in books, "Ошибка: 'Тебе не спрятаться' не должен быть в списке."
+
+
 
 
 
